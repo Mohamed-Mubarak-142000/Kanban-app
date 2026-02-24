@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Task } from "../types/type";
 
-const API_URL = "http://localhost:3000/api/tasks";
+const API_URL = "/api/tasks";
 
 const fetchAllTasks = async (): Promise<Task[]> => {
   const response = await axios.get<Task[]>(API_URL);
