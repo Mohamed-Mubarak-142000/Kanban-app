@@ -1,25 +1,28 @@
-import axios from "axios";
 import { Task } from "../types/type";
-
-const API_URL = "/api/tasks";
+import { localStorageService } from "./localStorageService";
 
 const fetchAllTasks = async (): Promise<Task[]> => {
-  const response = await axios.get<Task[]>(API_URL);
-  return response.data;
+  // Simulate API delay
+  await new Promise((resolve) => setTimeout(resolve, 300));
+  return localStorageService.getTasks();
 };
 
 const createTask = async (task: Omit<Task, "id">): Promise<Task> => {
-    const response = await axios.post<Task>(API_URL, task);
-    return response.data;
+  // Simulate API delay
+  await new Promise((resolve) => setTimeout(resolve, 300));
+  return localStorageService.addTask(task);
 };
 
 const updateTask = async (task: Task): Promise<Task> => {
-    const response = await axios.put<Task>(`${API_URL}/${task.id}`, task);
-    return response.data;
-}
+  // Simulate API delay
+  await new Promise((resolve) => setTimeout(resolve, 300));
+  return localStorageService.updateTask(task);
+};
 
 const deleteTask = async (id: number): Promise<void> => {
-    await axios.delete(`${API_URL}/${id}`);
-}
+  // Simulate API delay
+  await new Promise((resolve) => setTimeout(resolve, 300));
+  localStorageService.deleteTask(id);
+};
 
 export { fetchAllTasks, createTask, updateTask, deleteTask };
