@@ -20,9 +20,9 @@ import { Task, ColumnType, columns } from "../types/type";
 interface ColumnProps {
   columnId: ColumnType;
   tasks: Task[];
-  onAddTask: (task: Omit<Task, "id">) => Promise<void>;
-  onUpdateTask: (task: Task) => Promise<void>;
-  onDeleteTask: (id: number) => Promise<void>;
+  onAddTask: (task: Omit<Task, "id">) => Promise<unknown>;
+  onUpdateTask: (task: Task) => Promise<unknown>;
+  onDeleteTask: (id: number) => Promise<unknown>;
 }
 
 export default function Column({

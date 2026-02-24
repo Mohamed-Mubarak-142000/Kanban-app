@@ -14,7 +14,7 @@ import { Task, ColumnType } from "../types/type";
 interface TaskFormProps {
   open: boolean;
   onClose: () => void;
-  onSubmit: (task: Omit<Task, "id">) => Promise<void>;
+  onSubmit: (task: Omit<Task, "id">) => Promise<unknown>;
   initialData?: Task | null;
   columnId?: ColumnType;
 }
@@ -31,6 +31,7 @@ export default function TaskForm({
     description: "",
     column: columnId || "BackLog",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (initialData) {
@@ -50,8 +51,13 @@ export default function TaskForm({
 
   const handleSubmit = async () => {
     if (formData.title.trim()) {
-      await onSubmit(formData);
-      onClose();
+      setIsSubmitting(true);
+      try {
+        await onSubmit(formData);
+        onClose();
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -110,19 +116,24 @@ export default function TaskForm({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} sx={{ color: "#FFFFFF" }}>إلغاء</Button>
+        <Button onClick={onClose} sx={{ color: "#FFFFFF" }} disabled={isSubmitting}>إلغاء</Button>
         <Button 
           onClick={handleSubmit} 
           variant="contained"
+          disabled={isSubmitting || !formData.title.trim()}
           sx={{
             bgcolor: "#2ec56a",
             color: "#FFFFFF",
             "&:hover": {
               bgcolor: "#26a558"
+            },
+            "&.Mui-disabled": {
+              bgcolor: "#1a5a3a",
+              color: "#6B7C6F"
             }
           }}
         >
-          {initialData ? "حفظ" : "إضافة"}
+          {isSubmitting ? "جاري الحفظ..." : (initialData ? "حفظ" : "إضافة")}
         </Button>
       </DialogActions>
     </Dialog>

@@ -23,14 +23,15 @@ import { useState } from "react";
 interface TaskCardProps {
   task:     Task;
   index: number;
-  onUpdate: (task: Task) => Promise<void>;
-  onDelete: (id: number) => Promise<void>;
+  onUpdate: (task: Task) => Promise<unknown>;
+  onDelete: (id: number) => Promise<unknown>;
 }
 
 export default function TaskCard({ task, index, onUpdate, onDelete }: TaskCardProps) {
       const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
       const [editDialogOpen, setEditDialogOpen] = useState(false);
       const [editedTask, setEditedTask] = useState<Task>(task);
+      const [isSaving, setIsSaving] = useState(false);
 
       const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -51,8 +52,13 @@ export default function TaskCard({ task, index, onUpdate, onDelete }: TaskCardPr
       };
 
       const handleSaveEdit = async () => {
-        await onUpdate(editedTask);
-        setEditDialogOpen(false);
+        setIsSaving(true);
+        try {
+          await onUpdate(editedTask);
+          setEditDialogOpen(false);
+        } finally {
+          setIsSaving(false);
+        }
       };
 
       return (
@@ -144,19 +150,24 @@ export default function TaskCard({ task, index, onUpdate, onDelete }: TaskCardPr
               />
             </DialogContent>
             <DialogActions>
-              <Button onClick={() => setEditDialogOpen(false)} sx={{ color: "#FFFFFF" }}>إلغاء</Button>
+              <Button onClick={() => setEditDialogOpen(false)} sx={{ color: "#FFFFFF" }} disabled={isSaving}>إلغاء</Button>
               <Button 
                 onClick={handleSaveEdit} 
                 variant="contained"
+                disabled={isSaving || !editedTask.title.trim()}
                 sx={{
                   bgcolor: "#2ec56a",
                   color: "#FFFFFF",
                   "&:hover": {
                     bgcolor: "#26a558"
+                  },
+                  "&.Mui-disabled": {
+                    bgcolor: "#1a5a3a",
+                    color: "#6B7C6F"
                   }
                 }}
               >
-                حفظ
+                {isSaving ? "جاري الحفظ..." : "حفظ"}
               </Button>
             </DialogActions>
           </Dialog>
