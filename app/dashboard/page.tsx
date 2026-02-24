@@ -100,7 +100,7 @@ export default function Dashboard() {
       <AppBar position="static" sx={{ bgcolor: "#254632" }}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: "#FFFFFF" }}>
-            لوحة كانبان للمهام
+            Kanban todo
           </Typography>
         </Toolbar>
       </AppBar>
