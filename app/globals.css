@@ -24,3 +24,24 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Custom Colors */
+.bg-dark {
+  background-color: #0D1F14;
+}
+
+.text-primary {
+  color: #39FF8B;
+}
+
+.text-white {
+  color: #FFFFFF;
+}
+
+.text-secondary {
+  color: #B0C4A0;
+}
+
+.placeholder {
+  color: #6B7C6F;
+}

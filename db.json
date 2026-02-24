@@ -1,0 +1,40 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "تصميم الصفحة الرئيسية",
+      "description": "تصميم الصفحة الرئيسية مع 4 أعمدة",
+      "column": "backlog"
+    },
+    {
+      "id": 2,
+      "title": "إضافة drag and drop",
+      "description": "تنفيذ خاصية السحب والإفلات",
+      "column": "in_progress"
+    },
+    {
+      "id": 3,
+      "title": "مراجعة الكود",
+      "description": "مراجعة الكود وإجراء التحسينات",
+      "column": "review"
+    },
+    {
+      "id": 4,
+      "title": "اختبار التطبيق",
+      "description": "اختبار جميع وظائف التطبيق",
+      "column": "done"
+    },
+    {
+      "title": "asasa",
+      "description": "dssds",
+      "column": "BackLog",
+      "id": 1771946371751
+    },
+    {
+      "title": "test ",
+      "description": "desc",
+      "column": "BackLog",
+      "id": 1771946812052
+    }
+  ]
+}
